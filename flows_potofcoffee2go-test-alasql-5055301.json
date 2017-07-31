@@ -1,0 +1,3419 @@
+[
+    {
+        "id": "b087add2.81c69",
+        "type": "tab",
+        "label": "Alasql File in/out",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "44dadb45.d6c9f4",
+        "type": "tab",
+        "label": "Alasql",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "7049cc84.902504",
+        "type": "tab",
+        "label": "Sandbox",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "774ac723.eb1498",
+        "type": "tab",
+        "label": "MongoDb Examples",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6d96c133.8a30d",
+        "type": "MySQLdatabase",
+        "z": "",
+        "host": "codescullery.net",
+        "port": "3306",
+        "db": "lrunit_northwind",
+        "tz": "new york"
+    },
+    {
+        "id": "b0673ffa.fe131",
+        "type": "mongodb2",
+        "z": "",
+        "uri": "mongodb://ds135812.mlab.com:35812/potofcoffee2go",
+        "name": "mLab",
+        "options": "",
+        "parallelism": "-1"
+    },
+    {
+        "id": "b2ff8fa6.35b66",
+        "type": "ftp",
+        "z": "",
+        "host": "codescullery.net",
+        "port": "",
+        "secureOptions": "",
+        "user": "kim@codescullery.net",
+        "connTimeout": "",
+        "pasvTimeout": "",
+        "keepalive": ""
+    },
+    {
+        "id": "dcceef5a.17df1",
+        "type": "http in",
+        "z": "7049cc84.902504",
+        "name": "",
+        "url": "/seinfeld",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 111,
+        "y": 573,
+        "wires": [
+            [
+                "77ee2cc6.f03e64"
+            ]
+        ]
+    },
+    {
+        "id": "18ca9680.d74daa",
+        "type": "http response",
+        "z": "7049cc84.902504",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 551,
+        "y": 573,
+        "wires": []
+    },
+    {
+        "id": "77ee2cc6.f03e64",
+        "type": "http request",
+        "z": "7049cc84.902504",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 331,
+        "y": 573,
+        "wires": [
+            [
+                "18ca9680.d74daa"
+            ]
+        ]
+    },
+    {
+        "id": "1049782e.241ee8",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "order_details with orders",
+        "func": "msg.topic = 'select order_details.id as order_details_id, ' +\n'order_details.*, orders.*, customers.* ' +\n'from order_details ' +\n'join orders on orders.id = order_details.order_id ' + \n'join customers on customers.id = orders.customer_id ';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 190,
+        "y": 840,
+        "wires": [
+            [
+                "9d79f214.b652c"
+            ]
+        ]
+    },
+    {
+        "id": "9d79f214.b652c",
+        "type": "mysql",
+        "z": "7049cc84.902504",
+        "mydb": "6d96c133.8a30d",
+        "name": "mysql northwind",
+        "x": 440,
+        "y": 900,
+        "wires": [
+            [
+                "f2e2e33c.5da3d"
+            ]
+        ]
+    },
+    {
+        "id": "d47d8393.c9b8",
+        "type": "http in",
+        "z": "7049cc84.902504",
+        "name": "",
+        "url": "/ms.csv",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 109.85713195800781,
+        "y": 705.0000238418579,
+        "wires": [
+            [
+                "d8b4313.894cbd"
+            ]
+        ]
+    },
+    {
+        "id": "2d1fe712.164618",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "customers",
+        "func": "msg.topic = 'select * from \tcustomers'\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 230,
+        "y": 920,
+        "wires": [
+            [
+                "9d79f214.b652c"
+            ]
+        ]
+    },
+    {
+        "id": "c0d56571.15e2b8",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "orders",
+        "func": "msg.topic = 'select * from orders';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 880,
+        "wires": [
+            [
+                "9d79f214.b652c"
+            ]
+        ]
+    },
+    {
+        "id": "ca4f248d.eb3698",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "purchase_order_details",
+        "func": "msg.topic = 'select * from purchase_order_details ';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 190,
+        "y": 960,
+        "wires": [
+            [
+                "9d79f214.b652c"
+            ]
+        ]
+    },
+    {
+        "id": "5e99b9f2.f6e388",
+        "type": "inject",
+        "z": "44dadb45.d6c9f4",
+        "name": "Click Me",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 260,
+        "wires": [
+            [
+                "52463699.2675a8"
+            ]
+        ]
+    },
+    {
+        "id": "52463699.2675a8",
+        "type": "function",
+        "z": "44dadb45.d6c9f4",
+        "name": "Set Filename",
+        "func": "// Reset the node status line\nnode.status({});\n// Error if working_dir not set\nif (global.get('working_dir') === '') {\n    node.error('Working directory not set',msg);\n    node.status({fill:'red',shape:'dot',text:'Working directory not set'});\n    return;\n}\n// Set the filename to working_dir plus the name\nmsg.filename = global.get('working_dir') + 'seinfeld_episodes';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 260,
+        "wires": [
+            [
+                "bbd50765.d10628"
+            ]
+        ]
+    },
+    {
+        "id": "bbd50765.d10628",
+        "type": "alafile in",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "filename": "",
+        "format": "json",
+        "columns": "*",
+        "headers": true,
+        "x": 410,
+        "y": 260,
+        "wires": [
+            [
+                "7242a76.8bcd258"
+            ]
+        ]
+    },
+    {
+        "id": "ff7aa8ae.b380e8",
+        "type": "alasql",
+        "z": "44dadb45.d6c9f4",
+        "name": "All episodes",
+        "query": "SELECT * FROM ?",
+        "x": 210,
+        "y": 340,
+        "wires": [
+            [
+                "24caa544.4cd0ba"
+            ]
+        ]
+    },
+    {
+        "id": "d52476e0.af1038",
+        "type": "debug",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 510,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "b71f65bc.f64678",
+        "type": "debug",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 710,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "59cba8f5.80b588",
+        "type": "catch",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "scope": null,
+        "x": 560,
+        "y": 40,
+        "wires": [
+            [
+                "b71f65bc.f64678"
+            ]
+        ]
+    },
+    {
+        "id": "5e1c107b.ca89",
+        "type": "alasql",
+        "z": "44dadb45.d6c9f4",
+        "name": "Season 2",
+        "query": "SELECT * FROM ? WHERE ss=\"2\"",
+        "x": 200,
+        "y": 440,
+        "wires": [
+            [
+                "d52476e0.af1038"
+            ]
+        ]
+    },
+    {
+        "id": "24caa544.4cd0ba",
+        "type": "debug",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 510,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "7242a76.8bcd258",
+        "type": "link out",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "links": [
+            "f7988bdf.73bb68"
+        ],
+        "x": 515,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "f7988bdf.73bb68",
+        "type": "link in",
+        "z": "44dadb45.d6c9f4",
+        "name": "alasql",
+        "links": [
+            "7242a76.8bcd258"
+        ],
+        "x": 35,
+        "y": 340,
+        "wires": [
+            [
+                "ff7aa8ae.b380e8",
+                "5e1c107b.ca89",
+                "a02f6968.e9a808",
+                "9169723a.7a3dd",
+                "a17a99f9.9efa08",
+                "28662a5b.afe806",
+                "11b9359e.b500ca",
+                "6dbf2cd9.a1e114",
+                "77e2a6c7.a3a658",
+                "caddf94e.11da88"
+            ]
+        ]
+    },
+    {
+        "id": "a02f6968.e9a808",
+        "type": "alasql",
+        "z": "44dadb45.d6c9f4",
+        "name": "1992",
+        "query": "SELECT * FROM ? WHERE dte > \"1992\" and dte < \"1993\"",
+        "x": 190,
+        "y": 500,
+        "wires": [
+            [
+                "85e4ecbe.84644"
+            ]
+        ]
+    },
+    {
+        "id": "85e4ecbe.84644",
+        "type": "debug",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 510,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "7ccb0326.03146c",
+        "type": "comment",
+        "z": "44dadb45.d6c9f4",
+        "name": "WHERE Clause",
+        "info": "",
+        "x": 220,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "ed097808.7eedd8",
+        "type": "debug",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 550,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "9169723a.7a3dd",
+        "type": "alasql",
+        "z": "44dadb45.d6c9f4",
+        "name": "WHERE Season 2 ORDER BY episode",
+        "query": "SELECT * FROM ? WHERE ss=\"2\" ORDER BY ep",
+        "x": 300,
+        "y": 600,
+        "wires": [
+            [
+                "ed097808.7eedd8"
+            ]
+        ]
+    },
+    {
+        "id": "a17a99f9.9efa08",
+        "type": "alasql",
+        "z": "44dadb45.d6c9f4",
+        "name": "1992 ORDER Desending",
+        "query": "SELECT * FROM ? WHERE dte > \"1992\" and dte < \"1993\"\n ORDER BY dte DESC",
+        "x": 250,
+        "y": 660,
+        "wires": [
+            [
+                "1f1c6dde.e9e4a2"
+            ]
+        ]
+    },
+    {
+        "id": "1f1c6dde.e9e4a2",
+        "type": "debug",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 510,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "518ad068.948b8",
+        "type": "comment",
+        "z": "44dadb45.d6c9f4",
+        "name": "WHERE, ORDER, GROUP BY Clauses",
+        "info": "",
+        "x": 290,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "13fc494a.d03eb7",
+        "type": "alafile out",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "filename": "",
+        "format": "json",
+        "columns": "*",
+        "headers": true,
+        "x": 650,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "aee2a268.a73db",
+        "type": "function",
+        "z": "44dadb45.d6c9f4",
+        "name": "Set Filename",
+        "func": "// Reset the node status line\nnode.status({});\n// Error if working_dir not set\nif (global.get('working_dir') === '') {\n    node.error('Working directory not set',msg);\n    node.status({fill:'red',shape:'dot',text:'Working directory not set'});\n    return;\n}\n// Set the filename to working_dir plus the name\nmsg.filename = global.get('working_dir') + 'seinfeld_episodes';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 460,
+        "y": 140,
+        "wires": [
+            [
+                "13fc494a.d03eb7"
+            ]
+        ]
+    },
+    {
+        "id": "264beb30.a52034",
+        "type": "http request",
+        "z": "44dadb45.d6c9f4",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 270,
+        "y": 140,
+        "wires": [
+            [
+                "aee2a268.a73db"
+            ]
+        ]
+    },
+    {
+        "id": "7bf3bdfc.a9c964",
+        "type": "inject",
+        "z": "44dadb45.d6c9f4",
+        "name": "Click Me",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 140,
+        "wires": [
+            [
+                "264beb30.a52034"
+            ]
+        ]
+    },
+    {
+        "id": "33e9863b.f23f8a",
+        "type": "comment",
+        "z": "44dadb45.d6c9f4",
+        "name": "Get Seinfeld Episodes into JSON",
+        "info": "",
+        "x": 310,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "28662a5b.afe806",
+        "type": "alasql",
+        "z": "44dadb45.d6c9f4",
+        "name": "Count(*) and Sum(seq)",
+        "query": "SELECT COUNT(*) as nbrRecords, SUM(seq) as sumSeq\nFROM ? WHERE ss = \"3\"",
+        "x": 250,
+        "y": 820,
+        "wires": [
+            [
+                "c63027ee.54b8f8"
+            ]
+        ]
+    },
+    {
+        "id": "e2c79013.33a6b",
+        "type": "comment",
+        "z": "44dadb45.d6c9f4",
+        "name": "Count and Sum",
+        "info": "",
+        "x": 220,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "c63027ee.54b8f8",
+        "type": "debug",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 510,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "11b9359e.b500ca",
+        "type": "alasql",
+        "z": "44dadb45.d6c9f4",
+        "name": "SELECT MATRIX",
+        "query": "SELECT MATRIX * FROM ?",
+        "x": 230,
+        "y": 920,
+        "wires": [
+            [
+                "7f038766.a1e538"
+            ]
+        ]
+    },
+    {
+        "id": "7f038766.a1e538",
+        "type": "debug",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 510,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "5d6ff023.c5d09",
+        "type": "comment",
+        "z": "44dadb45.d6c9f4",
+        "name": "Output formats",
+        "info": "",
+        "x": 220,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "6dbf2cd9.a1e114",
+        "type": "alasql",
+        "z": "44dadb45.d6c9f4",
+        "name": "SELECT RECORDSET",
+        "query": "SELECT RECORDSET ss FROM ?",
+        "x": 250,
+        "y": 980,
+        "wires": [
+            [
+                "d42e5e74.c178f"
+            ]
+        ]
+    },
+    {
+        "id": "d42e5e74.c178f",
+        "type": "debug",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 510,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "77e2a6c7.a3a658",
+        "type": "alasql",
+        "z": "44dadb45.d6c9f4",
+        "name": "SELECT VALUE",
+        "query": "SELECT VALUE ss FROM ?",
+        "x": 220,
+        "y": 1040,
+        "wires": [
+            [
+                "f6e9d75e.e5dfd8"
+            ]
+        ]
+    },
+    {
+        "id": "f6e9d75e.e5dfd8",
+        "type": "debug",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 510,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "caddf94e.11da88",
+        "type": "alasql",
+        "z": "44dadb45.d6c9f4",
+        "name": "GROUP BY Season",
+        "query": "SELECT ss, COUNT(*) AS nbrEpisodes FROM ? GROUP BY ss",
+        "x": 240,
+        "y": 720,
+        "wires": [
+            [
+                "4b6c90f4.30a6c"
+            ]
+        ]
+    },
+    {
+        "id": "4b6c90f4.30a6c",
+        "type": "debug",
+        "z": "44dadb45.d6c9f4",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 510,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "c4617da2.01553",
+        "type": "comment",
+        "z": "44dadb45.d6c9f4",
+        "name": "Once in JSON file - Read and run tests",
+        "info": "",
+        "x": 330,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "57c12b90.ef7ab4",
+        "type": "function",
+        "z": "44dadb45.d6c9f4",
+        "name": "File Directory is :",
+        "func": "// (see AlaSQL File In/Out tab)\nnode.status({fill:\"green\",shape:\"dot\",text: ' ' + global.get(\"working_dir\")});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eeca1168.52fcc",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Set file directory",
+        "func": "// Set a global variable containing working directory for in/out files\n// Remember to put a trailing '/' and don't forget to Deploy! ;)\n\nglobal.set('working_dir','/home/ubuntu/workspace/files'); \n\nif (!global.get('working_dir')) {\n    node.status({fill:'red',shape:'dot',text:'Working directory not set'});\n    return;\n}\nelse {\n    node.status({fill:\"green\",shape:\"dot\",text: ' ' + global.get(\"working_dir\")});\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 340,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d7838865.4c4f98",
+        "type": "http request",
+        "z": "b087add2.81c69",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 270,
+        "y": 1420,
+        "wires": [
+            [
+                "99b9fc35.b96d7"
+            ]
+        ]
+    },
+    {
+        "id": "ed64a7fe.ad4928",
+        "type": "alafile out",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "xlsx",
+        "columns": "*",
+        "headers": true,
+        "x": 670,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "87716f28.05ef",
+        "type": "inject",
+        "z": "b087add2.81c69",
+        "name": "Click Me",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 1420,
+        "wires": [
+            [
+                "d7838865.4c4f98"
+            ]
+        ]
+    },
+    {
+        "id": "99b9fc35.b96d7",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Set Filename",
+        "func": "// Reset the node status line\nnode.status({});\n// Error if working_dir not set\nif (global.get('working_dir') === '') {\n    node.error('Working directory not set',msg);\n    node.status({fill:'red',shape:'dot',text:'Working directory not set'});\n    return;\n}\n// Set the filename to working_dir plus the name\nmsg.filename = global.get('working_dir') + 'seinfeld_episodes';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 460,
+        "y": 1420,
+        "wires": [
+            [
+                "ed64a7fe.ad4928",
+                "8ba140e9.65c1a",
+                "42733955.939af8",
+                "dcc95cb4.fb54f",
+                "dfd3fb8a.67f938",
+                "af407cab.a9809",
+                "6c9e9841.e3d0d8"
+            ]
+        ]
+    },
+    {
+        "id": "8ba140e9.65c1a",
+        "type": "alafile out",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "xls",
+        "columns": "*",
+        "headers": true,
+        "x": 670,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "42733955.939af8",
+        "type": "alafile out",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "csv",
+        "columns": "*",
+        "headers": true,
+        "x": 670,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "dcc95cb4.fb54f",
+        "type": "alafile out",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "json",
+        "columns": "*",
+        "headers": true,
+        "x": 670,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "dfd3fb8a.67f938",
+        "type": "alafile out",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "tab",
+        "columns": "*",
+        "headers": true,
+        "x": 670,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "af407cab.a9809",
+        "type": "alafile out",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "txt",
+        "columns": "*",
+        "headers": true,
+        "x": 670,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "e55c0621.8f5b58",
+        "type": "http request",
+        "z": "b087add2.81c69",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 290,
+        "y": 700,
+        "wires": [
+            [
+                "ec999a37.a96f68"
+            ]
+        ]
+    },
+    {
+        "id": "e67afba8.9d30d8",
+        "type": "inject",
+        "z": "b087add2.81c69",
+        "name": "Click Me",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 700,
+        "wires": [
+            [
+                "e55c0621.8f5b58"
+            ]
+        ]
+    },
+    {
+        "id": "ec999a37.a96f68",
+        "type": "alafile out",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "./test/flotsam/files/seinfeld_episodes",
+        "format": "csv",
+        "columns": "*",
+        "headers": true,
+        "x": 670,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "e00298b4.68e028",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "No filename given in either msg.filename or in the node configuration.",
+        "info": "",
+        "x": 260,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "126c0c44.ea61d4",
+        "type": "inject",
+        "z": "b087add2.81c69",
+        "name": "Click Me",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 90,
+        "y": 1040,
+        "wires": [
+            [
+                "813a5521.ccc6f8"
+            ]
+        ]
+    },
+    {
+        "id": "813a5521.ccc6f8",
+        "type": "http request",
+        "z": "b087add2.81c69",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 280,
+        "y": 1040,
+        "wires": [
+            [
+                "71469806.6a18d8"
+            ]
+        ]
+    },
+    {
+        "id": "71469806.6a18d8",
+        "type": "alafile out",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "csv",
+        "columns": "*",
+        "headers": true,
+        "x": 660,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "d2bb0e4c.a3bf5",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "Output with Filename from msg.filename.",
+        "info": "",
+        "x": 260,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "366297ae.2153b8",
+        "type": "inject",
+        "z": "b087add2.81c69",
+        "name": "Click Me",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 800,
+        "wires": [
+            [
+                "d48c40e2.a439c"
+            ]
+        ]
+    },
+    {
+        "id": "d48c40e2.a439c",
+        "type": "http request",
+        "z": "b087add2.81c69",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 290,
+        "y": 800,
+        "wires": [
+            [
+                "577d5b22.8d3214"
+            ]
+        ]
+    },
+    {
+        "id": "bd616c36.3dbb",
+        "type": "alafile out",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "json",
+        "columns": "*",
+        "headers": true,
+        "x": 670,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "577d5b22.8d3214",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Set Filename",
+        "func": "// Reset the node status line\nnode.status({});\n// Error if working_dir not set\nif (global.get('working_dir') === '') {\n    node.error('Working directory not set',msg);\n    node.status({fill:'red',shape:'dot',text:'Working directory not set'});\n    return;\n}\n// Set the filename to working_dir plus the name\nmsg.filename = global.get('working_dir') + 'seinfeld_episodes';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 500,
+        "y": 800,
+        "wires": [
+            [
+                "bd616c36.3dbb"
+            ]
+        ]
+    },
+    {
+        "id": "d8953e88.335ee",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "Output with Filename in the node configuration",
+        "info": "",
+        "x": 270,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "f52ee4a4.6d7df8",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "ala sql file out - output format tests",
+        "info": "",
+        "x": 160,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "c8959767.551248",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "No msg.payload",
+        "info": "",
+        "x": 90,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "d09b09f3.c07e08",
+        "type": "inject",
+        "z": "b087add2.81c69",
+        "name": "Click Me",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 90,
+        "y": 1140,
+        "wires": [
+            [
+                "8637e5c7.e4fde8"
+            ]
+        ]
+    },
+    {
+        "id": "8637e5c7.e4fde8",
+        "type": "http request",
+        "z": "b087add2.81c69",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 280,
+        "y": 1140,
+        "wires": [
+            [
+                "5eeef854.a08c08"
+            ]
+        ]
+    },
+    {
+        "id": "3c8ef6e7.7670da",
+        "type": "alafile out",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "csv",
+        "columns": "*",
+        "headers": true,
+        "x": 660,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "5eeef854.a08c08",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Delete Payload",
+        "func": "msg.filename = 'C:/Users/kim/Documents/seinfeld_episodes';\ndelete msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 1140,
+        "wires": [
+            [
+                "3c8ef6e7.7670da"
+            ]
+        ]
+    },
+    {
+        "id": "98041ea5.72fd1",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "ala sql file out - exception tests",
+        "info": "",
+        "x": 150,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "d07d4cec.bd209",
+        "type": "inject",
+        "z": "b087add2.81c69",
+        "name": "All Error out",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 240,
+        "y": 960,
+        "wires": [
+            [
+                "cab1da78.8f94a8"
+            ]
+        ]
+    },
+    {
+        "id": "598e15bd.fd718c",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "ala file out - basic tests",
+        "info": "",
+        "x": 120,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "cab1da78.8f94a8",
+        "type": "http request",
+        "z": "b087add2.81c69",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 440,
+        "y": 960,
+        "wires": [
+            [
+                "71469806.6a18d8",
+                "5eeef854.a08c08"
+            ]
+        ]
+    },
+    {
+        "id": "b9096688.5ec1f8",
+        "type": "http request",
+        "z": "b087add2.81c69",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 450,
+        "y": 620,
+        "wires": [
+            [
+                "ec999a37.a96f68",
+                "577d5b22.8d3214"
+            ]
+        ]
+    },
+    {
+        "id": "792c1307.5a97ac",
+        "type": "inject",
+        "z": "b087add2.81c69",
+        "name": "All Basic out",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 250,
+        "y": 620,
+        "wires": [
+            [
+                "b9096688.5ec1f8"
+            ]
+        ]
+    },
+    {
+        "id": "658410c4.2c86b",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "Ala File In/Out Tests",
+        "info": "\nThese flows do some common tests of the `node-red-contrib-alasql` file in/out\nnodes.\n\nThe flows are pretty basic and use data describing episodes of the Seinfeld\ntv sitcom available from [http://mysafeinfo.com](http://mysafeinfo.com).\n\nThe data is at \n * http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json\n\nOther than the `node-red-contrib-alasql` nodes, all nodes used are in the\n`node-red` default install :\n * inject\n * catch\n * status\n * debug\n * function\n * comment\n * http request\n * ala file in\n * ala file out\n",
+        "x": 110,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "4051d7e2.e9f388",
+        "type": "inject",
+        "z": "b087add2.81c69",
+        "name": "Inject on \"Deploy\"",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "eeca1168.52fcc"
+            ]
+        ]
+    },
+    {
+        "id": "98297d8d.d0326",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "Select comments and read 'Info' tab in the Sidebar (ctrl-space) for handy tips",
+        "info": "You might find some helpful information in the comments.\n\nOf course, you can delete them as you wish - they do not impact any of the flows.\n\n",
+        "x": 370,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "d6e85106.3591b",
+        "type": "catch",
+        "z": "b087add2.81c69",
+        "name": "",
+        "scope": null,
+        "x": 220,
+        "y": 240,
+        "wires": [
+            [
+                "47559c2f.e42924"
+            ]
+        ]
+    },
+    {
+        "id": "7357dce.bb2ce24",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "Error / Status Handlers",
+        "info": "These are two flows which display errors and statuses.\n\n`node-red-contrib-alasql` nodes generally use status messages to display\nany issues that occur. Status messages are displayed in the 'Sidebar' \n(ctrl-space) *debug* tab. By default All Status messages are not routed to the\n`debug` tab (to prevent spaming the tab with a bunch of messages).\nTurn on/off by pressing the 'button' on rightside of the `To debug tab` node.\n\nError messages are displayed as a status underneath the `Error Message` node.\nThe button on the left of the `Reset` node clears the error message from the display.\n\nThe `Status filter` and `Error Message` function nodes can be edited to filter\nthe messages that are displayed.",
+        "x": 120,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "47559c2f.e42924",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Error Message",
+        "func": "if (msg.error) {\n    node.status({fill:'red',shape:'dot',text:msg.error.message});\n}\nelse {\n    node.status({});\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "f80faaca.ada598"
+            ]
+        ]
+    },
+    {
+        "id": "f215855a.58b688",
+        "type": "inject",
+        "z": "b087add2.81c69",
+        "name": "Reset",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 90,
+        "y": 240,
+        "wires": [
+            [
+                "47559c2f.e42924"
+            ]
+        ]
+    },
+    {
+        "id": "1fc5af0b.beea31",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "Change the filename",
+        "info": "May wish to change the output `file name` of this node. The default file\npath/name assumes the node-red server was started with `npm test`.\n\nOptionally, change any other config parameters to your liking such as the\nformat.\n\nFeel free to delete this comment to get it outta the way.",
+        "x": 730,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "488b0859.dfaf58",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "About the file (working) directory",
+        "info": "`ala file in/out` files are read/written relative to the directory which\nnode-red was started on the server. \n\n*The default directory assumes the server was started by the `npm test` command\nfrom the directory which node-red-contrib-alasql is installed.*\n\nA fully qualified pathname can be entered that will take all the guess work\nout of it.\n\n*The directory must exist on the server. You can use forward slashes between\ndirectory names (even if running Windows) and remember the trailing '/' at the\nend of the directory path.*\n\nEdit the `Set working directory` function node to change the global `working_dir`\nvalue (at the beginning of the function) to the path where alasql files will be\nread/written.\n\nOpen the function and change the first line to be the path you wish files to\nbe stored. Deploy and the directory will be set. You could click\nthe `In/Out Directory` node button as well, but no needed.\n",
+        "x": 150,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "badb7da6.f3918",
+        "type": "status",
+        "z": "b087add2.81c69",
+        "name": "",
+        "scope": null,
+        "x": 220,
+        "y": 300,
+        "wires": [
+            [
+                "4cddc3e1.94186c"
+            ]
+        ]
+    },
+    {
+        "id": "f80faaca.ada598",
+        "type": "debug",
+        "z": "b087add2.81c69",
+        "name": "To debug tab",
+        "active": false,
+        "console": "false",
+        "complete": "status.text",
+        "x": 550,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "4cddc3e1.94186c",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Status Filter",
+        "func": "if (msg.status.text && msg.status.text !== '') {\n    return msg;    \n}\nreturn;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 300,
+        "wires": [
+            [
+                "2669f2e4.d310ee"
+            ]
+        ]
+    },
+    {
+        "id": "461d87e9.1c5b58",
+        "type": "inject",
+        "z": "b087add2.81c69",
+        "name": "All Tests",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 420,
+        "wires": [
+            [
+                "8991dbea.659588",
+                "2b2cf060.974ad"
+            ]
+        ]
+    },
+    {
+        "id": "246c2d8f.51f082",
+        "type": "link in",
+        "z": "b087add2.81c69",
+        "name": "All Basic out",
+        "links": [
+            "753cecc9.2a7864"
+        ],
+        "x": 535,
+        "y": 580,
+        "wires": [
+            [
+                "ec999a37.a96f68",
+                "577d5b22.8d3214"
+            ]
+        ]
+    },
+    {
+        "id": "753cecc9.2a7864",
+        "type": "link out",
+        "z": "b087add2.81c69",
+        "name": "Files out",
+        "links": [
+            "246c2d8f.51f082",
+            "515addfa.079bc4",
+            "4414b23e.73502c"
+        ],
+        "x": 455,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "515addfa.079bc4",
+        "type": "link in",
+        "z": "b087add2.81c69",
+        "name": "All Errors",
+        "links": [
+            "753cecc9.2a7864"
+        ],
+        "x": 535,
+        "y": 920,
+        "wires": [
+            [
+                "71469806.6a18d8",
+                "5eeef854.a08c08"
+            ]
+        ]
+    },
+    {
+        "id": "4414b23e.73502c",
+        "type": "link in",
+        "z": "b087add2.81c69",
+        "name": "Format Tests out",
+        "links": [
+            "753cecc9.2a7864"
+        ],
+        "x": 335,
+        "y": 1380,
+        "wires": [
+            [
+                "99b9fc35.b96d7"
+            ]
+        ]
+    },
+    {
+        "id": "f906bc92.aa7a1",
+        "type": "inject",
+        "z": "b087add2.81c69",
+        "name": "Click Me",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 1940,
+        "wires": [
+            [
+                "5a31d89a.a9ffe8"
+            ]
+        ]
+    },
+    {
+        "id": "5a31d89a.a9ffe8",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Set Filename",
+        "func": "// Reset the node status line\nnode.status({});\n// Error if working_dir not set\nif (global.get('working_dir') === '') {\n    node.error('Working directory not set',msg);\n    node.status({fill:'red',shape:'dot',text:'Working directory not set'});\n    return;\n}\n// Set the filename to working_dir plus the name\nmsg.filename = global.get('working_dir') + 'seinfeld_episodes';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 1940,
+        "wires": [
+            [
+                "cb48d15c.780c6",
+                "57828424.8b50cc",
+                "44dbfa4a.d67814",
+                "9879c113.0886",
+                "2fa75ea7.91dde2",
+                "2fd38053.e5e0d",
+                "5e038bd9.31fa44"
+            ]
+        ]
+    },
+    {
+        "id": "470f57c4.418b68",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "ala sql file in - input format tests",
+        "info": "",
+        "x": 150,
+        "y": 1680,
+        "wires": []
+    },
+    {
+        "id": "2fd38053.e5e0d",
+        "type": "alafile in",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "xlsx",
+        "columns": "*",
+        "headers": true,
+        "x": 470,
+        "y": 1740,
+        "wires": [
+            [
+                "b3a77b3.ccb7e88"
+            ]
+        ]
+    },
+    {
+        "id": "b3a77b3.ccb7e88",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Count Records",
+        "func": "node.status({});\nvar record_count = msg.payload.length;\nif (record_count > 0) {\n    node.status({fill:'green',shape:'dot',text:'Records: ' + record_count});\n}\nelse {\n    node.status({fill:'red',shape:'dot',text:'Records: ' + record_count});\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 1720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2fa75ea7.91dde2",
+        "type": "alafile in",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "xls",
+        "columns": "*",
+        "headers": true,
+        "x": 470,
+        "y": 1820,
+        "wires": [
+            [
+                "5aa64ea2.99aed"
+            ]
+        ]
+    },
+    {
+        "id": "9879c113.0886",
+        "type": "alafile in",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "csv",
+        "columns": "*",
+        "headers": true,
+        "x": 470,
+        "y": 1900,
+        "wires": [
+            [
+                "68b80a1b.a152f4"
+            ]
+        ]
+    },
+    {
+        "id": "57828424.8b50cc",
+        "type": "alafile in",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "json",
+        "columns": "*",
+        "headers": true,
+        "x": 470,
+        "y": 1980,
+        "wires": [
+            [
+                "8960ff2c.01789"
+            ]
+        ]
+    },
+    {
+        "id": "cb48d15c.780c6",
+        "type": "alafile in",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "tab",
+        "columns": "*",
+        "headers": true,
+        "x": 470,
+        "y": 2060,
+        "wires": [
+            [
+                "c0e4d6c5.c73f78"
+            ]
+        ]
+    },
+    {
+        "id": "5e038bd9.31fa44",
+        "type": "alafile in",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "tsv",
+        "columns": "*",
+        "headers": true,
+        "x": 470,
+        "y": 2140,
+        "wires": [
+            [
+                "49017be0.eff4c4"
+            ]
+        ]
+    },
+    {
+        "id": "4ce2924.7dab46c",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "Read from files created above",
+        "info": "",
+        "x": 160,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "5aa64ea2.99aed",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Count Records",
+        "func": "node.status({});\nvar record_count = msg.payload.length;\nif (record_count > 0) {\n    node.status({fill:'green',shape:'dot',text:'Records: ' + record_count});\n}\nelse {\n    node.status({fill:'red',shape:'dot',text:'Records: ' + record_count});\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 1800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "68b80a1b.a152f4",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Count Records",
+        "func": "node.status({});\nvar record_count = msg.payload.length;\nif (record_count > 0) {\n    node.status({fill:'green',shape:'dot',text:'Records: ' + record_count});\n}\nelse {\n    node.status({fill:'red',shape:'dot',text:'Records: ' + record_count});\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 1880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8960ff2c.01789",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Count Records",
+        "func": "node.status({});\nvar record_count = msg.payload.length;\nif (record_count > 0) {\n    node.status({fill:'green',shape:'dot',text:'Records: ' + record_count});\n}\nelse {\n    node.status({fill:'red',shape:'dot',text:'Records: ' + record_count});\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 1960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c0e4d6c5.c73f78",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Count Records",
+        "func": "node.status({});\nvar record_count = msg.payload.length;\nif (record_count > 0) {\n    node.status({fill:'green',shape:'dot',text:'Records: ' + record_count});\n}\nelse {\n    node.status({fill:'red',shape:'dot',text:'Records: ' + record_count});\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 2040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "49017be0.eff4c4",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Count Records",
+        "func": "node.status({});\nvar record_count = msg.payload.length;\nif (record_count > 0) {\n    node.status({fill:'green',shape:'dot',text:'Records: ' + record_count});\n}\nelse {\n    node.status({fill:'red',shape:'dot',text:'Records: ' + record_count});\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 2120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6c9e9841.e3d0d8",
+        "type": "alafile out",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "tsv",
+        "columns": "*",
+        "headers": true,
+        "x": 670,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "44dbfa4a.d67814",
+        "type": "alafile in",
+        "z": "b087add2.81c69",
+        "name": "",
+        "filename": "",
+        "format": "txt",
+        "columns": "*",
+        "headers": true,
+        "x": 470,
+        "y": 2220,
+        "wires": [
+            [
+                "d6c66802.d46c68"
+            ]
+        ]
+    },
+    {
+        "id": "d6c66802.d46c68",
+        "type": "function",
+        "z": "b087add2.81c69",
+        "name": "Count Records",
+        "func": "node.status({});\nvar record_count = msg.payload.length;\nif (record_count > 0) {\n    node.status({fill:'green',shape:'dot',text:'Records: ' + record_count});\n}\nelse {\n    node.status({fill:'red',shape:'dot',text:'Records: ' + record_count});\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 2200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e03b0a24.605d28",
+        "type": "link out",
+        "z": "b087add2.81c69",
+        "name": "Files in",
+        "links": [
+            "f9a22321.c4bc2"
+        ],
+        "x": 455,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "f9a22321.c4bc2",
+        "type": "link in",
+        "z": "b087add2.81c69",
+        "name": "Format Tests in",
+        "links": [
+            "e03b0a24.605d28"
+        ],
+        "x": 135,
+        "y": 1900,
+        "wires": [
+            [
+                "5a31d89a.a9ffe8"
+            ]
+        ]
+    },
+    {
+        "id": "f54369b8.64b748",
+        "type": "comment",
+        "z": "b087add2.81c69",
+        "name": "Give time for files to written before reading them",
+        "info": "",
+        "x": 400,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "2b2cf060.974ad",
+        "type": "http request",
+        "z": "b087add2.81c69",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 330,
+        "y": 420,
+        "wires": [
+            [
+                "753cecc9.2a7864"
+            ]
+        ]
+    },
+    {
+        "id": "2669f2e4.d310ee",
+        "type": "debug",
+        "z": "b087add2.81c69",
+        "name": "To debug tab",
+        "active": false,
+        "console": "false",
+        "complete": "status.text",
+        "x": 550,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "8991dbea.659588",
+        "type": "delay",
+        "z": "b087add2.81c69",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 300,
+        "y": 500,
+        "wires": [
+            [
+                "e03b0a24.605d28"
+            ]
+        ]
+    },
+    {
+        "id": "4036d9a.6560528",
+        "type": "mongodb2 in",
+        "z": "7049cc84.902504",
+        "service": "_ext_",
+        "configNode": "b0673ffa.fe131",
+        "name": "mLab",
+        "collection": "",
+        "operation": "",
+        "x": 630,
+        "y": 1660,
+        "wires": [
+            [
+                "f50d02d5.c65f5"
+            ]
+        ]
+    },
+    {
+        "id": "f50d02d5.c65f5",
+        "type": "debug",
+        "z": "7049cc84.902504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 790,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "d42e0e07.de60f",
+        "type": "http request",
+        "z": "7049cc84.902504",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 270,
+        "y": 1660,
+        "wires": [
+            [
+                "c5534837.88a978"
+            ]
+        ]
+    },
+    {
+        "id": "c5534837.88a978",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "store seinfeld docs",
+        "func": "var newMsg = {};\nnewMsg.collection = 'seinfeld';\n//newMsg.operation  = 'deleteOne';\nnewMsg.operation  = 'insert';\nnewMsg.payload    = [msg.payload];\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 1660,
+        "wires": [
+            [
+                "4036d9a.6560528"
+            ]
+        ]
+    },
+    {
+        "id": "e6f3489f.154608",
+        "type": "debug",
+        "z": "774ac723.eb1498",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 750,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "e93ac986.4d7bd8",
+        "type": "inject",
+        "z": "774ac723.eb1498",
+        "name": "2) Output Separately for each Record",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 166,
+        "y": 118,
+        "wires": [
+            [
+                "622fa36.b38085c"
+            ]
+        ]
+    },
+    {
+        "id": "1f42e8bc.8c55b7",
+        "type": "inject",
+        "z": "774ac723.eb1498",
+        "name": "1) Find One only",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 96,
+        "y": 18,
+        "wires": [
+            [
+                "48fc3206.a712ac"
+            ]
+        ]
+    },
+    {
+        "id": "48fc3206.a712ac",
+        "type": "function",
+        "z": "774ac723.eb1498",
+        "name": "findOne",
+        "func": " var newMsg = {};\nnewMsg.operation  = 'findOne';\nnewMsg.payload    = { 'name' : 'Pete1' , 'names' : 'Pete2' };\nnewMsg.projection = { 'name' : 1 , '_id' : 0 };\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 168,
+        "y": 78,
+        "wires": [
+            [
+                "1a68aa5a.6f08d6"
+            ]
+        ]
+    },
+    {
+        "id": "622fa36.b38085c",
+        "type": "function",
+        "z": "774ac723.eb1498",
+        "name": "find.forEach",
+        "func": "var newMsg = {};\nnewMsg.collection = 'names';\nnewMsg.operation  = 'find.forEach';\n//newMsg.payload    = { 'name' : 'Pete1' , 'names' : 'Pete2' };\nnewMsg.payload    = { 'name' : 'Pete1' };\nnewMsg.projection = { 'name' : 1 , '_id' : 0 };\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 146,
+        "y": 198,
+        "wires": [
+            [
+                "fc69d70d.2b1c68"
+            ]
+        ]
+    },
+    {
+        "id": "45ab215d.f68cc",
+        "type": "function",
+        "z": "774ac723.eb1498",
+        "name": "Just get name",
+        "func": "var newMsg = {};\nnewMsg.payload    = msg.payload.name;\nreturn newMsg;",
+        "outputs": 1,
+        "x": 616,
+        "y": 118,
+        "wires": [
+            [
+                "e6f3489f.154608"
+            ]
+        ]
+    },
+    {
+        "id": "562cd2b4.08d8ec",
+        "type": "inject",
+        "z": "774ac723.eb1498",
+        "name": "4) Output once only as a list",
+        "topic": "",
+        "payload": "",
+        "payloadType": "none",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 140,
+        "y": 360,
+        "wires": [
+            [
+                "8fb17af9.814898"
+            ]
+        ]
+    },
+    {
+        "id": "8fb17af9.814898",
+        "type": "function",
+        "z": "774ac723.eb1498",
+        "name": "find.toArray",
+        "func": "var newMsg = {};\nnewMsg.collection = 'names';\nnewMsg.operation  = 'find.toArray';\n//newMsg.payload    = { 'name' : 'Pete1' , 'names' : 'Pete2' };\nnewMsg.payload    = { 'name' : 'Pete1' };\nnewMsg.projection = { 'name' : 1 , '_id' : 0 };\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 150,
+        "y": 440,
+        "wires": [
+            [
+                "b677c5a5.0415e8"
+            ]
+        ]
+    },
+    {
+        "id": "dbc32e2e.89043",
+        "type": "function",
+        "z": "774ac723.eb1498",
+        "name": "get names as a list",
+        "func": "// Outputs separate messages !!\n//var newMsg =[];\n//for (var i = 0; i < msg.payload.length; i++) { \n//newMsg.push({name: msg.payload[i].name}) };\n//return [ newMsg ];\n\n// Combines into a single list (or array)\nvar newMsg =[];\nfor (var i = 0; i < msg.payload.length; i++) {\n//newMsg.push({name:  msg.payload[i].name } ) };\nnewMsg.push(msg.payload[i].name) };\nmsg.payload = newMsg;\nreturn  msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 610,
+        "y": 440,
+        "wires": [
+            [
+                "e6f3489f.154608"
+            ]
+        ]
+    },
+    {
+        "id": "f5b1c33e.2224d",
+        "type": "inject",
+        "z": "774ac723.eb1498",
+        "name": "3) Enter data",
+        "topic": "",
+        "payload": "",
+        "payloadType": "none",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 90,
+        "y": 280,
+        "wires": [
+            [
+                "7ff78f4a.1c3b4"
+            ]
+        ]
+    },
+    {
+        "id": "7ff78f4a.1c3b4",
+        "type": "function",
+        "z": "774ac723.eb1498",
+        "name": "insert (or delete)",
+        "func": "var newMsg = {};\nnewMsg.collection = 'names';\n//newMsg.operation  = 'deleteOne';\nnewMsg.operation  = 'insert';\nnewMsg.payload    = { 'name' : 'Pete1' , 'names' : 'Smith4' };\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 260,
+        "y": 280,
+        "wires": [
+            [
+                "67f8eef2.a7f76"
+            ]
+        ]
+    },
+    {
+        "id": "f0cf851e.5a4328",
+        "type": "mongodb2 in",
+        "z": "7049cc84.902504",
+        "service": "_ext_",
+        "configNode": "b0673ffa.fe131",
+        "name": "mongo mLab",
+        "collection": "",
+        "operation": "",
+        "x": 430,
+        "y": 1020,
+        "wires": [
+            [
+                "f2e2e33c.5da3d"
+            ]
+        ]
+    },
+    {
+        "id": "8fda9003.0ec3b",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "get seinfeld docs",
+        "func": "msg.collection = 'seinfeld';\nmsg.operation  = 'find.toArray';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 1000,
+        "wires": [
+            [
+                "f0cf851e.5a4328"
+            ]
+        ]
+    },
+    {
+        "id": "6b78833a.f34dbc",
+        "type": "http in",
+        "z": "7049cc84.902504",
+        "name": "",
+        "url": "/gs",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 89.85713195800781,
+        "y": 745.0000238418579,
+        "wires": [
+            [
+                "d95f4208.fe1ff"
+            ]
+        ]
+    },
+    {
+        "id": "19a0ba01.2cd106",
+        "type": "http response",
+        "z": "7049cc84.902504",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 810,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "f2e2e33c.5da3d",
+        "type": "fastcsv",
+        "z": "7049cc84.902504",
+        "name": "fastcsv",
+        "headers": true,
+        "headerstr": "",
+        "ignoreEmpty": true,
+        "discardUnmappedColumns": true,
+        "strictColumnHandling": false,
+        "delimiter": ",",
+        "quote": "\"",
+        "escape": "\"",
+        "comment": "#",
+        "ltrim": false,
+        "rtrim": false,
+        "rowDelimiter": "\\n",
+        "includeEndRowDelimiter": false,
+        "quoteHeaders": false,
+        "quoteColumns": false,
+        "x": 640,
+        "y": 1080,
+        "wires": [
+            [
+                "19a0ba01.2cd106"
+            ]
+        ]
+    },
+    {
+        "id": "945f7916.1b97b8",
+        "type": "inject",
+        "z": "7049cc84.902504",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 1640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1a68aa5a.6f08d6",
+        "type": "mongodb2 in",
+        "z": "774ac723.eb1498",
+        "service": "_ext_",
+        "configNode": "b0673ffa.fe131",
+        "name": "mLab",
+        "collection": "",
+        "operation": "",
+        "x": 430,
+        "y": 80,
+        "wires": [
+            [
+                "45ab215d.f68cc"
+            ]
+        ]
+    },
+    {
+        "id": "fc69d70d.2b1c68",
+        "type": "mongodb2 in",
+        "z": "774ac723.eb1498",
+        "service": "_ext_",
+        "configNode": "b0673ffa.fe131",
+        "name": "mLab",
+        "collection": "",
+        "operation": "",
+        "x": 430,
+        "y": 200,
+        "wires": [
+            [
+                "45ab215d.f68cc"
+            ]
+        ]
+    },
+    {
+        "id": "67f8eef2.a7f76",
+        "type": "mongodb2 in",
+        "z": "774ac723.eb1498",
+        "service": "_ext_",
+        "configNode": "b0673ffa.fe131",
+        "name": "mLab",
+        "collection": "",
+        "operation": "",
+        "x": 410,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b677c5a5.0415e8",
+        "type": "mongodb2 in",
+        "z": "774ac723.eb1498",
+        "service": "_ext_",
+        "configNode": "b0673ffa.fe131",
+        "name": "mLab",
+        "collection": "",
+        "operation": "",
+        "x": 410,
+        "y": 440,
+        "wires": [
+            [
+                "dbc32e2e.89043"
+            ]
+        ]
+    },
+    {
+        "id": "4dfd548b.461e4c",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "Hi Web Page",
+        "func": "msg.payload = '<html><head></head><body><h2>Hi world from function</h2></body></html>';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 120,
+        "wires": [
+            [
+                "a0398037.dc6f3"
+            ]
+        ]
+    },
+    {
+        "id": "2e06937.e32d76c",
+        "type": "inject",
+        "z": "7049cc84.902504",
+        "name": "High",
+        "topic": "",
+        "payload": "high",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 130,
+        "y": 260,
+        "wires": [
+            [
+                "75dab485.535c5c"
+            ]
+        ]
+    },
+    {
+        "id": "75dab485.535c5c",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "Route Signal",
+        "func": "var signal = msg.payload;\nif (signal === 'high') return [msg,null,null];\nelse if (signal === 'medium') return [null,msg,null];\nelse if (signal === 'low') return [null,null,msg];\n",
+        "outputs": "3",
+        "noerr": 0,
+        "x": 300,
+        "y": 300,
+        "wires": [
+            [
+                "8c7adfee.ce81d"
+            ],
+            [
+                "e52b5625.444c78"
+            ],
+            [
+                "9c92aa4e.be5b78"
+            ]
+        ]
+    },
+    {
+        "id": "8c7adfee.ce81d",
+        "type": "debug",
+        "z": "7049cc84.902504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 490,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e52b5625.444c78",
+        "type": "debug",
+        "z": "7049cc84.902504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 490,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "9c92aa4e.be5b78",
+        "type": "debug",
+        "z": "7049cc84.902504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 490,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "66c1bb15.453864",
+        "type": "inject",
+        "z": "7049cc84.902504",
+        "name": "Medium",
+        "topic": "",
+        "payload": "medium",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 130,
+        "y": 300,
+        "wires": [
+            [
+                "75dab485.535c5c"
+            ]
+        ]
+    },
+    {
+        "id": "1f3582ad.28ecad",
+        "type": "inject",
+        "z": "7049cc84.902504",
+        "name": "Low",
+        "topic": "",
+        "payload": "low",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "75dab485.535c5c"
+            ]
+        ]
+    },
+    {
+        "id": "a0cdf6b4.5ab988",
+        "type": "comment",
+        "z": "7049cc84.902504",
+        "name": "Request 'Hello' message",
+        "info": "### Hi - Html Message\n\nGoing to [hello](/hello) will display Hello World!",
+        "x": 320,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "f44553a7.e3398",
+        "type": "comment",
+        "z": "7049cc84.902504",
+        "name": "Multiple inputs to specific output",
+        "info": "",
+        "x": 298,
+        "y": 224,
+        "wires": []
+    },
+    {
+        "id": "31a9e8fe.e7a998",
+        "type": "inject",
+        "z": "7049cc84.902504",
+        "name": "High",
+        "topic": "",
+        "payload": "high",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 130,
+        "y": 400,
+        "wires": [
+            [
+                "a45d02aa.e4975"
+            ]
+        ]
+    },
+    {
+        "id": "fc7abe55.95741",
+        "type": "inject",
+        "z": "7049cc84.902504",
+        "name": "Medium",
+        "topic": "",
+        "payload": "medium",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 130,
+        "y": 440,
+        "wires": [
+            [
+                "a45d02aa.e4975"
+            ]
+        ]
+    },
+    {
+        "id": "667eb4c6.769edc",
+        "type": "inject",
+        "z": "7049cc84.902504",
+        "name": "Low",
+        "topic": "",
+        "payload": "low",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 130,
+        "y": 480,
+        "wires": [
+            [
+                "a45d02aa.e4975"
+            ]
+        ]
+    },
+    {
+        "id": "2b341d7c.883052",
+        "type": "debug",
+        "z": "7049cc84.902504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 490,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "65d83f3d.3fa57",
+        "type": "debug",
+        "z": "7049cc84.902504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 490,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "e925b71e.156958",
+        "type": "debug",
+        "z": "7049cc84.902504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 490,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a0398037.dc6f3",
+        "type": "http response",
+        "z": "7049cc84.902504",
+        "name": "",
+        "x": 510,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ebd28d9c.dc8e",
+        "type": "http in",
+        "z": "7049cc84.902504",
+        "name": "",
+        "url": "/hello",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 80,
+        "wires": [
+            [
+                "4dfd548b.461e4c"
+            ]
+        ]
+    },
+    {
+        "id": "a45d02aa.e4975",
+        "type": "switch",
+        "z": "7049cc84.902504",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "high",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "medium",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "low",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 3,
+        "x": 300,
+        "y": 440,
+        "wires": [
+            [
+                "2b341d7c.883052"
+            ],
+            [
+                "65d83f3d.3fa57"
+            ],
+            [
+                "e925b71e.156958"
+            ]
+        ]
+    },
+    {
+        "id": "40924e6b.0bac7",
+        "type": "template",
+        "z": "7049cc84.902504",
+        "name": "Hi world",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "plain",
+        "template": "<!DOCTYPE HTML>\n<html lang='en'>\n    <head>\n        <meta charset=\"utf-8\" />\n    </head>\n    <body>\n        <h2>Hi World!</h2>\n    </body>\n</html>",
+        "x": 280,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "33de122c.2d7c0e",
+        "type": "debug",
+        "z": "7049cc84.902504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 690,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "8d787f6.550548",
+        "type": "catch",
+        "z": "7049cc84.902504",
+        "name": "",
+        "scope": null,
+        "x": 540,
+        "y": 20,
+        "wires": [
+            [
+                "33de122c.2d7c0e"
+            ]
+        ]
+    },
+    {
+        "id": "8b8416f4.3156b8",
+        "type": "link in",
+        "z": "7049cc84.902504",
+        "name": "NorthWind Order Details",
+        "links": [
+            "7b1405ce.92bd0c"
+        ],
+        "x": 35,
+        "y": 840,
+        "wires": [
+            [
+                "1049782e.241ee8"
+            ]
+        ]
+    },
+    {
+        "id": "d8b4313.894cbd",
+        "type": "link out",
+        "z": "7049cc84.902504",
+        "name": "nw request",
+        "links": [
+            "9b2ebc23.c1a5"
+        ],
+        "x": 214.8571319580078,
+        "y": 705.0000238418579,
+        "wires": []
+    },
+    {
+        "id": "25577da5.b89542",
+        "type": "link in",
+        "z": "7049cc84.902504",
+        "name": "Northwind Orders",
+        "links": [
+            "763d3346.0dc39c"
+        ],
+        "x": 35,
+        "y": 880,
+        "wires": [
+            [
+                "c0d56571.15e2b8"
+            ]
+        ]
+    },
+    {
+        "id": "9d240c2b.3c4dd",
+        "type": "link in",
+        "z": "7049cc84.902504",
+        "name": "Northwind Customers",
+        "links": [],
+        "x": 35,
+        "y": 920,
+        "wires": [
+            [
+                "2d1fe712.164618"
+            ]
+        ]
+    },
+    {
+        "id": "5c484bfe.6b9364",
+        "type": "link in",
+        "z": "7049cc84.902504",
+        "name": "Northwind POs",
+        "links": [],
+        "x": 35,
+        "y": 960,
+        "wires": [
+            [
+                "ca4f248d.eb3698"
+            ]
+        ]
+    },
+    {
+        "id": "d95f4208.fe1ff",
+        "type": "link out",
+        "z": "7049cc84.902504",
+        "name": "",
+        "links": [
+            "7f7b75ac.e7172c"
+        ],
+        "x": 214.8571319580078,
+        "y": 745.0000238418579,
+        "wires": []
+    },
+    {
+        "id": "7f7b75ac.e7172c",
+        "type": "link in",
+        "z": "7049cc84.902504",
+        "name": "mongo Seinfeld",
+        "links": [
+            "d95f4208.fe1ff"
+        ],
+        "x": 35,
+        "y": 1000,
+        "wires": [
+            [
+                "8fda9003.0ec3b"
+            ]
+        ]
+    },
+    {
+        "id": "fce8d652.8b6b58",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "get posts docs",
+        "func": "msg.collection = 'posts';\nmsg.operation  = 'find.toArray';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 220,
+        "y": 1040,
+        "wires": [
+            [
+                "f0cf851e.5a4328"
+            ]
+        ]
+    },
+    {
+        "id": "9b2ebc23.c1a5",
+        "type": "link in",
+        "z": "7049cc84.902504",
+        "name": "mongo Posts",
+        "links": [
+            "46be36bf.07f918",
+            "d8b4313.894cbd"
+        ],
+        "x": 35,
+        "y": 1040,
+        "wires": [
+            [
+                "fce8d652.8b6b58"
+            ]
+        ]
+    },
+    {
+        "id": "f3befd6a.6322b",
+        "type": "http request",
+        "z": "7049cc84.902504",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 210,
+        "y": 1080,
+        "wires": [
+            [
+                "f2e2e33c.5da3d"
+            ]
+        ]
+    },
+    {
+        "id": "e801845b.93fab8",
+        "type": "http request",
+        "z": "7049cc84.902504",
+        "name": "Seinfeld Episodes",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://mysafeinfo.com/api/data?list=seinfeldepisodes&format=json",
+        "tls": "",
+        "x": 210,
+        "y": 1200,
+        "wires": [
+            [
+                "19a0ba01.2cd106"
+            ]
+        ]
+    },
+    {
+        "id": "bcd32b99.6f05f8",
+        "type": "link in",
+        "z": "7049cc84.902504",
+        "name": "seinfeld csv",
+        "links": [],
+        "x": 35,
+        "y": 1080,
+        "wires": [
+            [
+                "f3befd6a.6322b"
+            ]
+        ]
+    },
+    {
+        "id": "e0967ce2.9ed0f",
+        "type": "link in",
+        "z": "7049cc84.902504",
+        "name": "seinfeld json",
+        "links": [],
+        "x": 35,
+        "y": 1200,
+        "wires": [
+            [
+                "e801845b.93fab8"
+            ]
+        ]
+    },
+    {
+        "id": "d40a7a3.e2e1288",
+        "type": "http in",
+        "z": "7049cc84.902504",
+        "name": "",
+        "url": "/steve",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 319.8571319580078,
+        "y": 705.0000238418579,
+        "wires": [
+            [
+                "cb975fe3.af9b2"
+            ]
+        ]
+    },
+    {
+        "id": "e6ae003c.d9ad8",
+        "type": "http in",
+        "z": "7049cc84.902504",
+        "name": "",
+        "url": "/dan",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 319.8571319580078,
+        "y": 745.0000238418579,
+        "wires": [
+            [
+                "46be36bf.07f918"
+            ]
+        ]
+    },
+    {
+        "id": "cb975fe3.af9b2",
+        "type": "link out",
+        "z": "7049cc84.902504",
+        "name": "nw request",
+        "links": [
+            "a9c275a5.e93f28"
+        ],
+        "x": 434.8571319580078,
+        "y": 705.0000238418579,
+        "wires": []
+    },
+    {
+        "id": "46be36bf.07f918",
+        "type": "link out",
+        "z": "7049cc84.902504",
+        "name": "",
+        "links": [
+            "9b2ebc23.c1a5"
+        ],
+        "x": 434.8571319580078,
+        "y": 745.0000238418579,
+        "wires": []
+    },
+    {
+        "id": "ce385c02.04145",
+        "type": "http in",
+        "z": "7049cc84.902504",
+        "name": "",
+        "url": "/ryan",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 539.8571319580078,
+        "y": 705.0000238418579,
+        "wires": [
+            [
+                "763d3346.0dc39c"
+            ]
+        ]
+    },
+    {
+        "id": "e3113d78.c7847",
+        "type": "http in",
+        "z": "7049cc84.902504",
+        "name": "",
+        "url": "/kim",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 539.8571319580078,
+        "y": 745.0000238418579,
+        "wires": [
+            [
+                "950ba1d9.79cce"
+            ]
+        ]
+    },
+    {
+        "id": "763d3346.0dc39c",
+        "type": "link out",
+        "z": "7049cc84.902504",
+        "name": "nw request",
+        "links": [
+            "25577da5.b89542"
+        ],
+        "x": 654.8571319580078,
+        "y": 705.0000238418579,
+        "wires": []
+    },
+    {
+        "id": "950ba1d9.79cce",
+        "type": "link out",
+        "z": "7049cc84.902504",
+        "name": "",
+        "links": [
+            "929adf1f.29bb9",
+            "a9c275a5.e93f28"
+        ],
+        "x": 654.8571319580078,
+        "y": 745.0000238418579,
+        "wires": []
+    },
+    {
+        "id": "740e458d.f58e2c",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "get seinfeld docs",
+        "func": "var newMsg = {};\nnewMsg.collection = 'seinfeld';\nnewMsg.operation  = 'find.toArray';\nreturn newMsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 270,
+        "y": 1460,
+        "wires": [
+            [
+                "153ce376.35f97d"
+            ]
+        ]
+    },
+    {
+        "id": "6a089eba.3afad",
+        "type": "debug",
+        "z": "7049cc84.902504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 390,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "94438bf4.8177a8",
+        "type": "watch",
+        "z": "7049cc84.902504",
+        "name": "",
+        "files": "/home/ubuntu/workspace/files",
+        "recursive": true,
+        "x": 140,
+        "y": 1340,
+        "wires": [
+            [
+                "6a089eba.3afad",
+                "faa8f19b.9bfb7"
+            ]
+        ]
+    },
+    {
+        "id": "e17eb2ef.c708d",
+        "type": "file",
+        "z": "7049cc84.902504",
+        "name": "",
+        "filename": "/home/ubuntu/workspace/files/seinfeld.json",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 730,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "48098f8c.7c85c",
+        "type": "inject",
+        "z": "7049cc84.902504",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 1460,
+        "wires": [
+            [
+                "740e458d.f58e2c"
+            ]
+        ]
+    },
+    {
+        "id": "153ce376.35f97d",
+        "type": "mongodb2 in",
+        "z": "7049cc84.902504",
+        "service": "_ext_",
+        "configNode": "b0673ffa.fe131",
+        "name": "mongo mLab",
+        "collection": "",
+        "operation": "",
+        "x": 450,
+        "y": 1460,
+        "wires": [
+            [
+                "e17eb2ef.c708d"
+            ]
+        ]
+    },
+    {
+        "id": "68e6f485.a76a7c",
+        "type": "inject",
+        "z": "7049cc84.902504",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 1520,
+        "wires": [
+            [
+                "73aca610.30e2b8"
+            ]
+        ]
+    },
+    {
+        "id": "60ce94b4.eda23c",
+        "type": "ftp in",
+        "z": "7049cc84.902504",
+        "ftp": "b2ff8fa6.35b66",
+        "operation": "get",
+        "filename": "",
+        "localFilename": "",
+        "name": "ftp [get]",
+        "x": 480,
+        "y": 1520,
+        "wires": [
+            [
+                "1ae3d300.feb77d"
+            ]
+        ]
+    },
+    {
+        "id": "73aca610.30e2b8",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "obfoundation.md",
+        "func": "msg.filename = 'obfoundation.md';\nmsg.localFilename = '/home/ubuntu/workspace/files/obfoundation.md';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 1520,
+        "wires": [
+            [
+                "60ce94b4.eda23c"
+            ]
+        ]
+    },
+    {
+        "id": "1ae3d300.feb77d",
+        "type": "debug",
+        "z": "7049cc84.902504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 670,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "d909cfa.a204e3",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "inventory_transactions",
+        "func": "msg.topic = 'select * from inventory_transactions ';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 120,
+        "y": 1720,
+        "wires": [
+            [
+                "5d58af68.30d28"
+            ]
+        ]
+    },
+    {
+        "id": "5d58af68.30d28",
+        "type": "mysql",
+        "z": "7049cc84.902504",
+        "mydb": "6d96c133.8a30d",
+        "name": "mysql northwind",
+        "x": 320,
+        "y": 1720,
+        "wires": [
+            [
+                "6736359c.3f897c"
+            ]
+        ]
+    },
+    {
+        "id": "6736359c.3f897c",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "store inventory_transactions docs",
+        "func": "var newMsg = {};\nnewMsg.collection = 'inventory_transactions';\n//newMsg.operation  = 'deleteOne';\nnewMsg.operation  = 'insert';\nnewMsg.payload    = [msg.payload];\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 1720,
+        "wires": [
+            [
+                "6bb865af.d07cbc"
+            ]
+        ]
+    },
+    {
+        "id": "6bb865af.d07cbc",
+        "type": "mongodb2 in",
+        "z": "7049cc84.902504",
+        "service": "_ext_",
+        "configNode": "b0673ffa.fe131",
+        "name": "mLab",
+        "collection": "",
+        "operation": "",
+        "x": 770,
+        "y": 1720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dc696955.2c9628",
+        "type": "comment",
+        "z": "7049cc84.902504",
+        "name": "Get Seinfeld episodes via HTTP request",
+        "info": "",
+        "x": 330,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "edec4081.ddc1f",
+        "type": "comment",
+        "z": "7049cc84.902504",
+        "name": "Direct HTTP requests to perform a task via links",
+        "info": "",
+        "x": 360,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "e95f2bd9.98fe08",
+        "type": "comment",
+        "z": "7049cc84.902504",
+        "name": "Requests to a MySql database",
+        "info": "",
+        "x": 469.1428680419922,
+        "y": 854.9999761581421,
+        "wires": []
+    },
+    {
+        "id": "6f6715f0.dfd73c",
+        "type": "comment",
+        "z": "7049cc84.902504",
+        "name": "Requests to Mongo",
+        "info": "",
+        "x": 432.1428680419922,
+        "y": 979.9999761581421,
+        "wires": []
+    },
+    {
+        "id": "e39a567c.bb07d8",
+        "type": "comment",
+        "z": "7049cc84.902504",
+        "name": "Convert to CSV",
+        "info": "",
+        "x": 640,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "bd628a98.a40f58",
+        "type": "comment",
+        "z": "7049cc84.902504",
+        "name": "Watch, process, and log file change events",
+        "info": "",
+        "x": 400,
+        "y": 1280,
+        "wires": []
+    },
+    {
+        "id": "1685f241.52fbde",
+        "type": "comment",
+        "z": "7049cc84.902504",
+        "name": "Query MySql, Mongo, and Web for data",
+        "info": "",
+        "x": 170,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "bb58f0ab.c1d93",
+        "type": "comment",
+        "z": "7049cc84.902504",
+        "name": "Send result",
+        "info": "",
+        "x": 810,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "7534ff6a.9216d",
+        "type": "file",
+        "z": "7049cc84.902504",
+        "name": "",
+        "filename": "/home/ubuntu/workspace/logs/watch.log",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "x": 660,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "faa8f19b.9bfb7",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "Log file change",
+        "func": "var logMsg = {};\nlogMsg = {\n    file: msg.payload,\n    time: new Date()\n};\nmsg.payload = logMsg;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 1320,
+        "wires": [
+            [
+                "7534ff6a.9216d"
+            ]
+        ]
+    },
+    {
+        "id": "cd9ed113.90d4a",
+        "type": "comment",
+        "z": "7049cc84.902504",
+        "name": "Change some files to test above",
+        "info": "",
+        "x": 390,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "5282bbe0.750074",
+        "type": "comment",
+        "z": "7049cc84.902504",
+        "name": "Moving stuff to other databases - only do once!!!!",
+        "info": "",
+        "x": 360,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "af86f356.66acf",
+        "type": "inject",
+        "z": "44dadb45.d6c9f4",
+        "name": "Inject on \"Deploy\"",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 130,
+        "y": 40,
+        "wires": [
+            [
+                "57c12b90.ef7ab4"
+            ]
+        ]
+    },
+    {
+        "id": "f259e3c.cc69b2",
+        "type": "ftp in",
+        "z": "7049cc84.902504",
+        "ftp": "b2ff8fa6.35b66",
+        "operation": "list",
+        "filename": "obfoundation.md",
+        "localFilename": "/home/ubuntu/.node-red/public/obfoundation.md",
+        "name": "ftp kim codescullery.net",
+        "x": 190,
+        "y": 1120,
+        "wires": [
+            [
+                "88453a1d.1f0ac8"
+            ]
+        ]
+    },
+    {
+        "id": "929adf1f.29bb9",
+        "type": "link in",
+        "z": "7049cc84.902504",
+        "name": "kim ftp",
+        "links": [
+            "950ba1d9.79cce"
+        ],
+        "x": 35,
+        "y": 1120,
+        "wires": [
+            [
+                "f259e3c.cc69b2"
+            ]
+        ]
+    },
+    {
+        "id": "88453a1d.1f0ac8",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "format ftp list",
+        "func": "msg.payload.forEach(function(dirInfo) {\n    dirInfo.rights = 'User: ' +  dirInfo.rights.user + \n        ', group: ' +  dirInfo.rights.group + \n        ', other: ' +  dirInfo.rights.other;\n});\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 430,
+        "y": 1120,
+        "wires": [
+            [
+                "f2e2e33c.5da3d"
+            ]
+        ]
+    },
+    {
+        "id": "a9c275a5.e93f28",
+        "type": "link in",
+        "z": "7049cc84.902504",
+        "name": "kim ftp get obfoundation",
+        "links": [
+            "950ba1d9.79cce",
+            "cb975fe3.af9b2"
+        ],
+        "x": 35,
+        "y": 1160,
+        "wires": [
+            [
+                "c2e435d7.0a4bf8"
+            ]
+        ]
+    },
+    {
+        "id": "c2e435d7.0a4bf8",
+        "type": "function",
+        "z": "7049cc84.902504",
+        "name": "obfoundation.md",
+        "func": "msg.filename = 'obfoundation.md';\nmsg.localFilename = '/home/ubuntu/workspace/files/obfoundation.md';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 210,
+        "y": 1160,
+        "wires": [
+            [
+                "c7188ae.fec6d78"
+            ]
+        ]
+    },
+    {
+        "id": "c7188ae.fec6d78",
+        "type": "file in",
+        "z": "7049cc84.902504",
+        "name": "read file",
+        "filename": "/home/ubuntu/workspace/files/obfoundation.md",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "x": 420,
+        "y": 1160,
+        "wires": [
+            [
+                "5c042ec2.9f4fa"
+            ]
+        ]
+    },
+    {
+        "id": "5c042ec2.9f4fa",
+        "type": "markdown",
+        "z": "7049cc84.902504",
+        "name": "markdown to HTML",
+        "x": 610,
+        "y": 1160,
+        "wires": [
+            [
+                "19a0ba01.2cd106"
+            ]
+        ]
+    }
+]
