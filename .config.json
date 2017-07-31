@@ -436,7 +436,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-contrib-git-ui",
-     "file": "/home/ubuntu/workspace/vallen-red/node_modules/node-red-contrib-git-ui/git/git.js"
+     "file": "/home/ubuntu/workspace/vallen-demo-flows/node_modules/node-red-contrib-git-ui/git/git.js"
     }
    }
   },
@@ -454,7 +454,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-contrib-mongodb2",
-     "file": "/home/ubuntu/workspace/vallen-red/node_modules/node-red-contrib-mongodb2/mongodb2/mongodb2.js"
+     "file": "/home/ubuntu/workspace/vallen-demo-flows/node_modules/node-red-contrib-mongodb2/mongodb2/mongodb2.js"
     }
    }
   },
@@ -472,7 +472,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-contrib-ftp",
-     "file": "/home/ubuntu/workspace/vallen-red/node_modules/node-red-contrib-ftp/ftp.js"
+     "file": "/home/ubuntu/workspace/vallen-demo-flows/node_modules/node-red-contrib-ftp/ftp.js"
     }
    }
   },
@@ -490,7 +490,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-node-mysql",
-     "file": "/home/ubuntu/workspace/vallen-red/node_modules/node-red-node-mysql/68-mysql.js"
+     "file": "/home/ubuntu/workspace/vallen-demo-flows/node_modules/node-red-node-mysql/68-mysql.js"
     }
    }
   },
@@ -507,7 +507,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-contrib-fast-csv",
-     "file": "/home/ubuntu/workspace/vallen-red/node_modules/node-red-contrib-fast-csv/nodes/fastcsv.js"
+     "file": "/home/ubuntu/workspace/vallen-demo-flows/node_modules/node-red-contrib-fast-csv/nodes/fastcsv.js"
     }
    }
   },
@@ -524,7 +524,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-contrib-alasql",
-     "file": "/home/ubuntu/workspace/vallen-red/node_modules/node-red-contrib-alasql/node-red-contrib-alasql.js"
+     "file": "/home/ubuntu/workspace/vallen-demo-flows/node_modules/node-red-contrib-alasql/node-red-contrib-alasql.js"
     },
     "alafile": {
      "name": "alafile",
@@ -535,7 +535,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-contrib-alasql",
-     "file": "/home/ubuntu/workspace/vallen-red/node_modules/node-red-contrib-alasql/node-red-contrib-alafile.js"
+     "file": "/home/ubuntu/workspace/vallen-demo-flows/node_modules/node-red-contrib-alasql/node-red-contrib-alafile.js"
     },
     "ala-file": {
      "name": "ala-file",
@@ -563,7 +563,7 @@
      "enabled": true,
      "local": true,
      "module": "node-red-contrib-markdown",
-     "file": "/home/ubuntu/workspace/vallen-red/node_modules/node-red-contrib-markdown/lib/markdown.js"
+     "file": "/home/ubuntu/workspace/vallen-demo-flows/node_modules/node-red-contrib-markdown/lib/markdown.js"
     }
    }
   }
