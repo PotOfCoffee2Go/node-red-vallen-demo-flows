@@ -1,2 +1,3 @@
-# node-red-poc2go-flows
-General node-red flows
+# node-red-vallen-demo-flows
+General node-red flows for Vallen demo
+
