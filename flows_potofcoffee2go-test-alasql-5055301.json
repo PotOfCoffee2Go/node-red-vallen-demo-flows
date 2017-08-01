@@ -3180,10 +3180,10 @@
         "id": "e95f2bd9.98fe08",
         "type": "comment",
         "z": "7049cc84.902504",
-        "name": "Requests to a MySql database",
+        "name": "Requests to MySql",
         "info": "",
-        "x": 469.1428680419922,
-        "y": 854.9999761581421,
+        "x": 430,
+        "y": 860,
         "wires": []
     },
     {
