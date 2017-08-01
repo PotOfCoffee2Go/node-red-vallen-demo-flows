@@ -154,7 +154,7 @@
         "type": "function",
         "z": "7049cc84.902504",
         "name": "customers",
-        "func": "msg.topic = 'select * from \tcustomers'\nreturn msg;",
+        "func": "msg.topic = 'select * from \tcustomers '\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 230,
