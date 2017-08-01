@@ -2522,8 +2522,10 @@
         "type": "http response",
         "z": "7049cc84.902504",
         "name": "",
+        "statusCode": "",
+        "headers": {},
         "x": 510,
-        "y": 100,
+        "y": 80,
         "wires": []
     },
     {
