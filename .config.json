@@ -448,6 +448,8 @@
      "local": true,
      "module": "node-red-contrib-alasql",
      "file": "/home/ubuntu/workspace/vallen-demo-flows/node_modules/node-red-contrib-alasql/node-red-contrib-alafile.js"
+     "module": "node-red-contrib-git-ui",
+     "file": "/home/ubuntu/workspace/vallen-demo-flows/node_modules/node-red-contrib-git-ui/git/git.js"
     }
    }
   },
@@ -465,6 +467,8 @@
      "local": true,
      "module": "node-red-contrib-fast-csv",
      "file": "/home/ubuntu/workspace/vallen-demo-flows/node_modules/node-red-contrib-fast-csv/nodes/fastcsv.js"
+     "module": "node-red-contrib-mongodb2",
+     "file": "/home/ubuntu/workspace/vallen-demo-flows/node_modules/node-red-contrib-mongodb2/mongodb2/mongodb2.js"
     }
    }
   },

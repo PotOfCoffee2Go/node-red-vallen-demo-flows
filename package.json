@@ -1,10 +1,9 @@
 {
-  "name": "vallen-red",
+  "name": "vallen-demo-flows",
   "version": "1.0.0",
   "description": "General node-red flows",
   "main": "settings.js",
   "dependencies": {
-    "node-red-contrib-alasql": "^1.0.1",
     "node-red-contrib-fast-csv": "^0.4.0",
     "node-red-contrib-ftp": "0.0.2",
     "node-red-contrib-git-ui": "git+https://github.com/PotOfCoffee2Go/node-red-contrib-git-ui.git",
@@ -18,13 +17,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PotOfCoffee2Go/node-red-poc2go-flows.git"
+    "url": "git+https://github.com/PotOfCoffee2Go/node-red-vallen-demo-flows.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PotOfCoffee2Go/node-red-poc2go-flows/issues"
+    "url": "https://github.com/PotOfCoffee2Go/node-red-vallen-demo-flows/issues"
   },
-  "homepage": "https://github.com/PotOfCoffee2Go/node-red-poc2go-flows#readme"
+  "homepage": "https://github.com/PotOfCoffee2Go/node-red-vallen-demo-flows#readme"
 }
