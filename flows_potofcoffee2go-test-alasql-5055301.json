@@ -63,7 +63,7 @@
         "z": "7049cc84.902504",
         "name": "",
         "url": "/seinfeld",
-        "method": "get",
+        "method": "post",
         "upload": false,
         "swaggerDoc": "",
         "x": 111,
@@ -128,7 +128,7 @@
         "y": 900,
         "wires": [
             [
-                "f2e2e33c.5da3d"
+                "b9f2c730.4a6bc8"
             ]
         ]
     },
@@ -2188,7 +2188,7 @@
         "y": 1080,
         "wires": [
             [
-                "19a0ba01.2cd106"
+                "cf30df0d.e7698"
             ]
         ]
     },
@@ -2537,6 +2537,7 @@
         "name": "",
         "url": "/hello",
         "method": "get",
+        "upload": false,
         "swaggerDoc": "",
         "x": 80,
         "y": 80,
@@ -2635,8 +2636,7 @@
         "name": "NorthWind Order Details",
         "links": [
             "7b1405ce.92bd0c",
-            "950ba1d9.79cce",
-            "d95f4208.fe1ff"
+            "950ba1d9.79cce"
         ],
         "x": 35,
         "y": 840,
@@ -2708,7 +2708,7 @@
         "z": "7049cc84.902504",
         "name": "",
         "links": [
-            "8b8416f4.3156b8"
+            "7f7b75ac.e7172c"
         ],
         "x": 214.8571319580078,
         "y": 745.0000238418579,
@@ -2719,7 +2719,9 @@
         "type": "link in",
         "z": "7049cc84.902504",
         "name": "mongo Seinfeld",
-        "links": [],
+        "links": [
+            "d95f4208.fe1ff"
+        ],
         "x": 35,
         "y": 1000,
         "wires": [
@@ -3245,7 +3247,7 @@
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "false",
-        "x": 660,
+        "x": 780,
         "y": 1320,
         "wires": []
     },
@@ -3342,7 +3344,7 @@
         "type": "function",
         "z": "7049cc84.902504",
         "name": "format ftp list",
-        "func": "msg.payload.forEach(function(dirInfo) {\n    dirInfo.rights = 'User: ' +  dirInfo.rights.user + \n        ', group: ' +  dirInfo.rights.group + \n        ', other: ' +  dirInfo.rights.other;\n});\nreturn msg;",
+        "func": "var stuff = [];\nmsg.payload.forEach(function(dirInfo) {\n    stuff.push('INSERT INTO table ' + dirInfo);\n});\nmsg.payload = stuff;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 430,
@@ -3416,15 +3418,119 @@
         ]
     },
     {
-        "id": "6e70f523.97da0c",
-        "type": "status",
+        "id": "b9f2c730.4a6bc8",
+        "type": "fastcsv",
         "z": "7049cc84.902504",
+        "name": "fastcsv",
+        "headers": true,
+        "headerstr": "",
+        "ignoreEmpty": true,
+        "discardUnmappedColumns": true,
+        "strictColumnHandling": false,
+        "delimiter": ",",
+        "quote": "\"",
+        "escape": "\"",
+        "comment": "#",
+        "ltrim": false,
+        "rtrim": false,
+        "rowDelimiter": "\\n",
+        "includeEndRowDelimiter": false,
+        "quoteHeaders": false,
+        "quoteColumns": false,
+        "x": 640,
+        "y": 900,
+        "wires": [
+            [
+                "19a0ba01.2cd106"
+            ]
+        ]
+    },
+    {
+        "id": "7c09d68d.156f68",
+        "type": "change",
+        "z": "b087add2.81c69",
         "name": "",
-        "scope": null,
-        "x": 80,
-        "y": 180,
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 1220,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "e14a5234.9b408",
+        "type": "sentiment",
+        "z": "b087add2.81c69",
+        "name": "",
+        "x": 680,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cec1a205.61606",
+        "type": "change",
+        "z": "7049cc84.902504",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 620,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "acab5b8c.7c23b8",
+        "type": "rbe",
+        "z": "7049cc84.902504",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "x": 730,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cf30df0d.e7698",
+        "type": "debug",
+        "z": "7049cc84.902504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 780,
+        "y": 1080,
+        "wires": []
     }
 ]
