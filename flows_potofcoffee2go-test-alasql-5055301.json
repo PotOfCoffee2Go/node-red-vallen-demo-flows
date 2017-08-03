@@ -21,6 +21,13 @@
         "info": ""
     },
     {
+        "id": "69215d.acd50ea4",
+        "type": "tab",
+        "label": "Excel",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "774ac723.eb1498",
         "type": "tab",
         "label": "MongoDb Examples",
@@ -3532,5 +3539,49 @@
         "x": 780,
         "y": 1080,
         "wires": []
+    },
+    {
+        "id": "24129ac8.faa166",
+        "type": "http in",
+        "z": "69215d.acd50ea4",
+        "name": "",
+        "url": "/ms1",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "bc9f1aa5.ba9d48"
+            ]
+        ]
+    },
+    {
+        "id": "6595775d.fa3558",
+        "type": "http response",
+        "z": "69215d.acd50ea4",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 570,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "bc9f1aa5.ba9d48",
+        "type": "function",
+        "z": "69215d.acd50ea4",
+        "name": "Simple text response",
+        "func": "msg.payload = 'This is kim'\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 60,
+        "wires": [
+            [
+                "6595775d.fa3558"
+            ]
+        ]
     }
 ]
