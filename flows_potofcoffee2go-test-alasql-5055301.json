@@ -21,13 +21,6 @@
         "info": ""
     },
     {
-        "id": "69215d.acd50ea4",
-        "type": "tab",
-        "label": "Excel",
-        "disabled": false,
-        "info": ""
-    },
-    {
         "id": "774ac723.eb1498",
         "type": "tab",
         "label": "MongoDb Examples",
@@ -135,7 +128,7 @@
         "y": 900,
         "wires": [
             [
-                "f2e2e33c.5da3d"
+                "b9f2c730.4a6bc8"
             ]
         ]
     },
@@ -2167,7 +2160,7 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 830,
+        "x": 810,
         "y": 1200,
         "wires": []
     },
@@ -2195,7 +2188,7 @@
         "y": 1080,
         "wires": [
             [
-                "19a0ba01.2cd106"
+                "cf30df0d.e7698"
             ]
         ]
     },
@@ -2700,9 +2693,7 @@
         "type": "link in",
         "z": "7049cc84.902504",
         "name": "Northwind POs",
-        "links": [
-            "d95f4208.fe1ff"
-        ],
+        "links": [],
         "x": 35,
         "y": 960,
         "wires": [
@@ -2717,7 +2708,7 @@
         "z": "7049cc84.902504",
         "name": "",
         "links": [
-            "5c484bfe.6b9364"
+            "7f7b75ac.e7172c"
         ],
         "x": 214.8571319580078,
         "y": 745.0000238418579,
@@ -2728,7 +2719,9 @@
         "type": "link in",
         "z": "7049cc84.902504",
         "name": "mongo Seinfeld",
-        "links": [],
+        "links": [
+            "d95f4208.fe1ff"
+        ],
         "x": 35,
         "y": 1000,
         "wires": [
@@ -3241,7 +3234,7 @@
         "z": "7049cc84.902504",
         "name": "Send result",
         "info": "",
-        "x": 830,
+        "x": 810,
         "y": 1160,
         "wires": []
     },
@@ -3351,7 +3344,7 @@
         "type": "function",
         "z": "7049cc84.902504",
         "name": "format ftp list",
-        "func": "msg.payload.forEach(function(dirInfo) {\n    dirInfo.rights = 'User: ' +  dirInfo.rights.user + \n    ', group: ' +  dirInfo.rights.group + \n    ', other: ' +  dirInfo.rights.other;\n});\nreturn msg;",
+        "func": "var stuff = [];\nmsg.payload.forEach(function(dirInfo) {\n    stuff.push('INSERT INTO table ' + dirInfo);\n});\nmsg.payload = stuff;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 430,
@@ -3425,6 +3418,34 @@
         ]
     },
     {
+        "id": "b9f2c730.4a6bc8",
+        "type": "fastcsv",
+        "z": "7049cc84.902504",
+        "name": "fastcsv",
+        "headers": true,
+        "headerstr": "",
+        "ignoreEmpty": true,
+        "discardUnmappedColumns": true,
+        "strictColumnHandling": false,
+        "delimiter": ",",
+        "quote": "\"",
+        "escape": "\"",
+        "comment": "#",
+        "ltrim": false,
+        "rtrim": false,
+        "rowDelimiter": "\\n",
+        "includeEndRowDelimiter": false,
+        "quoteHeaders": false,
+        "quoteColumns": false,
+        "x": 640,
+        "y": 900,
+        "wires": [
+            [
+                "19a0ba01.2cd106"
+            ]
+        ]
+    },
+    {
         "id": "7c09d68d.156f68",
         "type": "change",
         "z": "b087add2.81c69",
@@ -3461,60 +3482,55 @@
         ]
     },
     {
-        "id": "24129ac8.faa166",
-        "type": "http in",
-        "z": "69215d.acd50ea4",
+        "id": "cec1a205.61606",
+        "type": "change",
+        "z": "7049cc84.902504",
         "name": "",
-        "url": "/ms1",
-        "method": "post",
-        "upload": false,
-        "swaggerDoc": "",
-        "x": 110,
-        "y": 60,
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 620,
+        "y": 820,
         "wires": [
-            [
-                "bc9f1aa5.ba9d48",
-                "3b30c7be.fe7048"
-            ]
+            []
         ]
     },
     {
-        "id": "6595775d.fa3558",
-        "type": "http response",
-        "z": "69215d.acd50ea4",
+        "id": "acab5b8c.7c23b8",
+        "type": "rbe",
+        "z": "7049cc84.902504",
         "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 550,
-        "y": 60,
-        "wires": []
-    },
-    {
-        "id": "bc9f1aa5.ba9d48",
-        "type": "function",
-        "z": "69215d.acd50ea4",
-        "name": "Simple text response",
-        "func": "msg.payload = \n'_id,title,post\\n' +\n'5950467b5768121f95a87fca,My first post,This might work\\n' +\n'5950482b5768121f95a87fcb,My Second Post,This is awesome and cool!\\n' +\n'5950fa7acb803334dd528167,third post,this is third post\\n' +\n'5950facecb803334dd528168,four,fourth post\\n' +\n'59510f17cb803334dd528169,,\\n' +\n'59510f1ecb803334dd52816a,Hi Jim,This is cool\\n' +\n'59510f34cb803334dd52816b,Hi ,Agreeereturn msg';\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 350,
-        "y": 60,
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "x": 730,
+        "y": 860,
         "wires": [
-            [
-                "6595775d.fa3558"
-            ]
+            []
         ]
     },
     {
-        "id": "3b30c7be.fe7048",
+        "id": "cf30df0d.e7698",
         "type": "debug",
-        "z": "69215d.acd50ea4",
+        "z": "7049cc84.902504",
         "name": "",
         "active": true,
         "console": "false",
-        "complete": "true",
-        "x": 340,
-        "y": 140,
+        "complete": "false",
+        "x": 780,
+        "y": 1080,
         "wires": []
     }
 ]
