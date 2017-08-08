@@ -716,7 +716,7 @@
         "type": "function",
         "z": "b087add2.81c69",
         "name": "Set file directory",
-        "func": "// Set a global variable containing working directory for in/out files\n// Remember to put a trailing '/' and don't forget to Deploy! ;)\n\nglobal.set('working_dir','/home/ubuntu/workspace/files'); \n\nif (!global.get('working_dir')) {\n    node.status({fill:'red',shape:'dot',text:'Working directory not set'});\n    return;\n}\nelse {\n    node.status({fill:\"green\",shape:\"dot\",text: ' ' + global.get(\"working_dir\")});\n}\nreturn msg;",
+        "func": "// Set a global variable containing working directory for in/out files\n// Remember to put a trailing '/' and don't forget to Deploy! ;)\n\nglobal.set('working_dir','/home/ubuntu/workspace/files/'); \n\nif (!global.get('working_dir')) {\n    node.status({fill:'red',shape:'dot',text:'Working directory not set'});\n    return;\n}\nelse {\n    node.status({fill:\"green\",shape:\"dot\",text: ' ' + global.get(\"working_dir\")});\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 340,
@@ -2638,7 +2638,8 @@
             "7b1405ce.92bd0c",
             "950ba1d9.79cce",
             "d95f4208.fe1ff",
-            "75c28962.5fdfa8"
+            "75c28962.5fdfa8",
+            "9ead94c5.19de98"
         ],
         "x": 75,
         "y": 940,
@@ -2666,8 +2667,7 @@
         "z": "7049cc84.902504",
         "name": "Northwind Orders",
         "links": [
-            "763d3346.0dc39c",
-            "9ead94c5.19de98"
+            "763d3346.0dc39c"
         ],
         "x": 75,
         "y": 980,
@@ -3477,7 +3477,7 @@
         "z": "7049cc84.902504",
         "name": "",
         "links": [
-            "25577da5.b89542"
+            "8b8416f4.3156b8"
         ],
         "x": 615,
         "y": 840,
