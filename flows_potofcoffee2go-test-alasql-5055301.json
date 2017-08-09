@@ -3457,14 +3457,15 @@
         "type": "function",
         "z": "7049cc84.902504",
         "name": "Insert Pets",
-        "func": "var sqlcmds = [];\nmsg.payload.forEach(function(pet) {\n    sqlcmds.push('INSERT INTO pet VALUES (' +\n        '\"' + pet.name + '\",' +\n        '\"' + pet.owner + '\",' +\n        '\"' + pet.species + '\",' +\n        '\"' + pet.sex + '\",' +\n        '\"' + pet.birth + '\",' +\n        '\"' + pet.death + '\"' +\n        ');');\n});\nvar cmds = sqlcmds.toString();\nmsg.topic = cmds.replace(/\\);,/g, ');');\nreturn msg;",
+        "func": "var sqlcmds = [];\nmsg.payload.forEach(function(pet) {\n    sqlcmds.push('INSERT INTO pet VALUES (' +\n        '\"' + pet.name + '\",' +\n        '\"' + pet.owner + '\",' +\n        '\"' + pet.species + '\",' +\n        '\"' + pet.sex + '\",' +\n        'DATE \"' + pet.birth + '\",' +\n        'DATE \"' + pet.death + '\"' +\n        ');');\n});\nvar cmds = sqlcmds.toString();\nmsg.topic = cmds.replace(/\\);,/g, ');');\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 510,
         "y": 1300,
         "wires": [
             [
-                "3fc521ae.1925ee"
+                "3fc521ae.1925ee",
+                "cb1b6fa0.19332"
             ]
         ]
     },
@@ -3591,5 +3592,17 @@
                 "43d9debd.904a6"
             ]
         ]
+    },
+    {
+        "id": "cb1b6fa0.19332",
+        "type": "debug",
+        "z": "7049cc84.902504",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 880,
+        "y": 1320,
+        "wires": []
     }
 ]
