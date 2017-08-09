@@ -3457,7 +3457,7 @@
         "type": "function",
         "z": "7049cc84.902504",
         "name": "Insert Pets",
-        "func": "var sqlcmds = [];\nmsg.payload.forEach(function(record) {\n    sqlcmds.push('INSERT INTO pet VALUES (' +\n        '\"' + record.name + '\",' +\n        '\"' + record.owner + '\",' +\n        '\"' + record.species + '\",' +\n        '\"' + record.sex + '\",' +\n        '\"' + record.birth + '\",' +\n        '\"' + record.death + '\"' +\n        ');');\n});\nvar cmds = sqlcmds.toString();\nmsg.topic = cmds.replace(/\\)\\;\\,/g, ');');\nreturn msg;",
+        "func": "var sqlcmds = [];\nmsg.payload.forEach(function(pet) {\n    sqlcmds.push('INSERT INTO pet VALUES (' +\n        '\"' + pet.name + '\",' +\n        '\"' + pet.owner + '\",' +\n        '\"' + pet.species + '\",' +\n        '\"' + pet.sex + '\",' +\n        '\"' + pet.birth + '\",' +\n        '\"' + pet.death + '\"' +\n        ');');\n});\nvar cmds = sqlcmds.toString();\nmsg.topic = cmds.replace(/\\);,/g, ');');\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 510,
